@@ -19,6 +19,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ScrollView;
@@ -56,12 +57,31 @@ public class PullToRefreshScrollView extends PullToRefreshBase<ScrollView> {
 		}
 
 		scrollView.setId(R.id.scrollview);
+		scrollView.smoothScrollTo(0,0);
 		return scrollView;
 	}
 
 	@Override
 	protected boolean isReadyForPullStart() {
 		return mRefreshableView.getScrollY() == 0;
+	}
+	
+	@Override
+	protected void onRefreshing(final boolean doScroll) {
+	    if (doScroll) {
+	        new Handler().postDelayed(new Runnable() {
+	            @Override
+	            public void run() {
+	                superRefresh(doScroll);
+	            }
+	        }, 100);
+	    } else {
+	        superRefresh(doScroll);
+	    }
+	}
+	 
+	private void superRefresh(boolean doScroll){
+	    super.onRefreshing(doScroll);
 	}
 
 	@Override
