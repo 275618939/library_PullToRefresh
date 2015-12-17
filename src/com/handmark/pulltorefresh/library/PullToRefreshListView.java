@@ -25,6 +25,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -68,11 +69,11 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 		 * If we're not showing the Refreshing view, or the list is empty, the
 		 * the header/footer views won't show so we use the normal method.
 		 */
-		ListAdapter adapter = mRefreshableView.getAdapter();
+		/*ListAdapter adapter = mRefreshableView.getAdapter();
 		if (!mListViewExtrasEnabled || !getShowViewWhileRefreshing() || null == adapter || adapter.isEmpty()) {
 			super.onRefreshing(doScroll);
 			return;
-		}
+		}*/
 
 		super.onRefreshing(false);
 
@@ -219,6 +220,11 @@ public class PullToRefreshListView extends PullToRefreshAdapterViewBase<ListView
 		// Set it to this so it can be used in ListActivity/ListFragment
 		lv.setId(android.R.id.list);
 		return lv;
+	}
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,MeasureSpec.AT_MOST);
+		super.onMeasure(widthMeasureSpec, expandSpec);
 	}
 
 	@Override

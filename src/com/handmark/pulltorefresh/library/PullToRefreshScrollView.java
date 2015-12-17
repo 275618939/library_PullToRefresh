@@ -66,7 +66,7 @@ public class PullToRefreshScrollView extends PullToRefreshBase<ScrollView> {
 		return mRefreshableView.getScrollY() == 0;
 	}
 	
-	@Override
+	/*@Override
 	protected void onRefreshing(final boolean doScroll) {
 	    if (doScroll) {
 	        new Handler().postDelayed(new Runnable() {
@@ -82,7 +82,7 @@ public class PullToRefreshScrollView extends PullToRefreshBase<ScrollView> {
 	 
 	private void superRefresh(boolean doScroll){
 	    super.onRefreshing(doScroll);
-	}
+	}*/
 
 	@Override
 	protected boolean isReadyForPullEnd() {
